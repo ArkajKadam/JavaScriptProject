@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" >
+    <script src="https://kit.fontawesome.com/21caca6ea2.js" crossorigin="anonymous"></script>
+    <title>Music player</title>
+</head>
+<body >
+    <div class="container">
+        <div class="music-player">
+            <nav>
+                <div class="circle">
+                    <i class="fa-solid fa-angle-left"></i>
+                </div>
+                <div class="circle">
+                    <i class="fa-solid fa-bars"></i>                </div>
+            </nav>
+            <img src="Song/husn1.jpg" class="song-img">
+            <h1>Husn</h1>
+            <p>Anuv Jain</p>
+
+            <audio controls id="song">
+                <source src="Song/Husn - Anuv Jain 320 Kbps.mp3" type="audio/mpeg">
+            </audio>
+            <input type="range" id="progress">
+            <div class="controls">
+                <div>
+                    <i class="fa-solid fa-backward"></i>
+                </div>
+                <div id ="playPause">                  
+                   <i class="fa-solid fa-play" id="ctrIcon"></i>                 
+                </div>
+                <div>
+                    <i class="fa-solid fa-forward"></i>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+<script>
+
+    let progress = document.getElementById("progress")
+    let song = document.getElementById("song")
+    let ctrIcon = document.getElementById("ctrIcon")
+    const playPauseBtn = document.getElementById("playPause")
+
+
+    song.addEventListener("loadSong", function(){
+        progress.max = song.duration;
+        progress.value = song.currentTime;
+    }) 
+
+    const playPause = function playPause(){
+         if(song.paused){       // if(song.paused)
+            song.play();
+            ctrIcon.classList.replace("fa-play", "fa-pause");
+         }
+         else{
+            song.pause()
+            ctrIcon.classList.replace("fa-pause", "fa-play");
+         }
+    }
+
+    song.addEventListener("timeupdate", () => {
+            progress.value = song.currentTime;
+        });
+
+    progress.addEventListener("input", () => {
+            song.currentTime = progress.value;
+            if (song.paused) {
+                song.play();
+                ctrIcon.classList.replace("fa-play", "fa-pause");
+            }
+        });
+
+
+    
+
+    playPauseBtn.addEventListener("click",playPause);
+
+
+</script>
+
+</body>
+</html>
